@@ -1,0 +1,5 @@
+pool:
+  vmImage: 'Ubuntu 16.04'
+steps:
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifacts'
