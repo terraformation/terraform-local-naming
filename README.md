@@ -1,13 +1,42 @@
-# terraformation/terraform-local-naming
+<h1 align="center">terraform-local-naming</h1> 
+<div align="center">
 
-## Azure DevOps
-[![Build Status](https://dev.azure.com/terraformation/terraformation/_apis/build/status/terraformation/terraform-local-naming?branchName=master)](https://dev.azure.com/terraformation/terraformation/_build/latest?definitionId=1&branchName=master)
-
-## GitHub
+[![Build Status](https://dev.azure.com/terraformation/Terraformation/_apis/build/status/terraformation.terraform-local-naming?branchName=master)](https://dev.azure.com/terraformation/Terraformation/_build/latest?definitionId=2&branchName=master)
 [![Licence](https://img.shields.io/github/license/terraformation/terraform-local-naming)](https://github.com/terraformation/terraform-local-naming/blob/master/LICENSE)
 ![Contributors](https://img.shields.io/github/contributors/terraformation/terraform-local-naming)
 ![Last commit](https://img.shields.io/github/last-commit/terraformation/terraform-local-naming)
 ![Last commit](https://img.shields.io/github/commit-activity/m/terraformation/terraform-local-naming)
+[![Maintained by Terraformation](https://img.shields.io/badge/maintained%20by-Terraformation-%235849a6.svg)](https://github.com/terraformation)
+![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
+![Chat](https://img.shields.io/gitter/room/terraformation/community)
+
+</div>
+
+
+## What does this Module ?
+This module provides a mechanism to create consistent naming across multiple resources. The origin of the creation of this module is linked to the fact that most of company around the world commonly use standardized naming to describe their it resources.
+
+Behind this standardize naming, their is often a meaning to give some information about of the context of the resource. (Like the zone where is hosted the resource).
+
+## How to use this Module ?
+```hcl
+module "naming_module" {
+  source = "terraformation/naming/local"
+  naming_options = {
+    suffix = "test"
+    prefix = "test2"
+  }
+}
+```
+
+### Inputs
+| Name | Description |Type| Default | Required |
+|------|-------------|:-----:|:-----:|:-----:|
+|naming_options|The options to pass to the generator|object/any|{}|no
+### Outputs
+| Name | Description |
+|------|-------------|
+|rendered|The value of the generated name.|
 
 ## What's a Module?
 
@@ -20,27 +49,6 @@ Instead of figuring out the details of how to run a piece of infrastructure from
 existing code that has been proven in production. And instead of maintaining all that infrastructure code yourself, 
 you can leverage the work of the Module community to pick up infrastructure improvements through
 a version number bump.
-
-## What does this Module ?
-This module provides a mechanism to create consistent naming across multiple resources. The origin of the creation of this module is linked to the fact that most of company around the world commonly use standardized naming to describe their it resources.
-
-Behind this standardize naming, their is often a meaning to give some information about of the context of the resource. (Like the zone where is hosted the resource).
-
-## How to use this Module ?
-```hcl
-module "naming_module" {
-  source = "terraformation/naming/local"
-}
-```
-
-### Inputs
-| Name | Description | Default | Required |
-|------|-------------|:-----:|:-----:|
-|-|-|-|-|
-### Outputs
-| Name | Description |
-|------|-------------|
-|-|-|
 
 ## Who maintains this Module?
 

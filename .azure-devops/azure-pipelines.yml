@@ -1,5 +1,29 @@
+name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  - master
+resources:
+  repositories:
+    - repository: self
+  containers:
+    - container: tooling_tester
+      image: terraformation/tooling-tester
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: 'ubuntu-16.04'
+container: tooling_tester
 steps:
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish artifacts'
+  - bash: |
+      mkdir -p /go/src
+      cd /go/src
+      ln -s $(Build.SourcesDirectory)/tests
+      ls -al
+      pwd
+    displayName: go src
+  - bash: |
+      cd /go/src/tests
+      dep ensure --vendor-only
+    displayName: dep ensure --vendor-only
+
+  - bash: |
+      cd /go/src/tests
+      go test
+    displayName: go test
