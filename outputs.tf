@@ -1,4 +1,4 @@
 output "rendered" {
-  value       = local.result
+  value       = local.rendered
   description = ""
 }

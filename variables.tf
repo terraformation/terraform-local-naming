@@ -1,5 +1,9 @@
 variable "naming_options" {
-  type    = any
+  type    = map(any)
   default = {}
-  description = ""
+  description = "(Optional) Options to pass to th namee generator"
+}
+variable "module_depends_on" {
+  default = [""]
+  description = "(Optional) "
 }

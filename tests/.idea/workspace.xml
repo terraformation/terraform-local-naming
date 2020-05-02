@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="856d751d-df3f-4c07-b5ba-7092beced327" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../exemples/default/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/../exemples/default/main.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exemples/default/variables.tf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/../main.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outputs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/../outputs.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gopkg.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gopkg.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/../variables.tf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.14/libexec" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoDepProject">
+    <integration-enabled>true</integration-enabled>
+    <exec-path>/usr/local/bin/dep</exec-path>
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+    <option name="urls">
+      <list>
+        <option value="file://$PROJECT_DIR$/.." />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1bKLFooyR1NozW1otpxrsYvqJMX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.dep.integrator" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="640" y="435" key="#Dep" timestamp="1588375762135">
+      <screen x="0" y="23" width="1680" height="976" />
+    </state>
+    <state x="640" y="435" key="#Dep/0.23.1680.976@0.23.1680.976" timestamp="1588375762135" />
+    <state x="640" y="448" key="#GOROOT" timestamp="1588375755237">
+      <screen x="0" y="23" width="1680" height="976" />
+    </state>
+    <state x="640" y="448" key="#GOROOT/0.23.1680.976@0.23.1680.976" timestamp="1588375755237" />
+    <state x="341" y="150" key="SettingsEditor" timestamp="1588376343123">
+      <screen x="0" y="23" width="1680" height="976" />
+    </state>
+    <state x="341" y="150" key="SettingsEditor/0.23.1680.976@0.23.1680.976" timestamp="1588376343123" />
+  </component>
+</project>

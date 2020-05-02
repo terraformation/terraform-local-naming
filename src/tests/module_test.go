@@ -1,24 +1,16 @@
-package test
+package tests
 
 import (
-  "fmt"
-  "github.com/gruntwork-io/terratest/modules/random"
   "github.com/gruntwork-io/terratest/modules/terraform"
-  test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
+  "github.com/gruntwork-io/terratest/modules/test-structure"
   "github.com/stretchr/testify/assert"
-  "strings"
   "testing"
 )
 
-func TestNamingModuleWithSuffix(t *testing.T) {
+func TestNamingModuleDefault(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  uniqueID := random.UniqueId()
-  namingOptions := map[string]string{"suffix": uniqueID}
-
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/default")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -29,11 +21,6 @@ func TestNamingModuleWithSuffix(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -44,20 +31,14 @@ func TestNamingModuleWithSuffix(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(uniqueID), rendered)
+    assert.Equal(t, "prefix-resource_name-suffix", rendered)
 
   })
 }
-
-func TestNamingModuleWithPrefix(t *testing.T) {
+func TestNamingModuleWithoutSuffix(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  uniqueID := random.UniqueId()
-  namingOptions := map[string]string{"prefix": uniqueID}
-
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/without_suffix")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -68,11 +49,6 @@ func TestNamingModuleWithPrefix(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -83,19 +59,15 @@ func TestNamingModuleWithPrefix(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(uniqueID), rendered)
+    assert.Regexp(t,"^prefix-resource_name-.*$", rendered)
+    //assert.Equal(t, "prefix-resource_name", rendered)
 
   })
 }
-
-func TestNamingModuleWithResourceName(t *testing.T) {
+func TestNamingModuleWithoutPrefix(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  uniqueID := random.UniqueId()
-  namingOptions := map[string]string{"resource_name": uniqueID}
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/without_prefix")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -106,11 +78,6 @@ func TestNamingModuleWithResourceName(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -121,20 +88,14 @@ func TestNamingModuleWithResourceName(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(uniqueID), rendered)
+    assert.Equal(t, "resource_name-suffix", rendered)
+
   })
 }
-
-func TestNamingModuleWithAll(t *testing.T) {
+func TestNamingModuleWithoutResourceName(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  resourceName := random.UniqueId()
-  suffix := random.UniqueId()
-  prefix := random.UniqueId()
-  namingOptions := map[string]string{"resource_name": resourceName, "suffix": suffix, "prefix": prefix}
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/without_resource_name")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -145,11 +106,6 @@ func TestNamingModuleWithAll(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -160,20 +116,14 @@ func TestNamingModuleWithAll(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(fmt.Sprintf("%s-%s-%s", prefix, resourceName, suffix)), rendered)
+    assert.Equal(t, "prefix-suffix", rendered)
+
   })
 }
-
-func TestNamingModuleWithoutHyphen(t *testing.T) {
+func TestNamingModuleLowerCase(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  resourceName := random.UniqueId()
-  suffix := random.UniqueId()
-  prefix := random.UniqueId()
-  namingOptions := map[string]string{"resource_name": resourceName, "suffix": suffix, "prefix": prefix, "hyphen": "false"}
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/lower")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -184,11 +134,6 @@ func TestNamingModuleWithoutHyphen(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -199,20 +144,14 @@ func TestNamingModuleWithoutHyphen(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(fmt.Sprintf("%s%s%s", prefix , resourceName, suffix)), rendered)
+    assert.Equal(t, "prefix-resource_name-suffix", rendered)
+
   })
 }
-
-func TestNamingModuleUpper(t *testing.T) {
+func TestNamingModuleUpperCase(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  resourceName := random.UniqueId()
-  suffix := random.UniqueId()
-  prefix := random.UniqueId()
-  namingOptions := map[string]string{"resource_name": resourceName, "suffix": suffix, "prefix": prefix, "lower": "false"}
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/upper")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -223,11 +162,6 @@ func TestNamingModuleUpper(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -238,20 +172,14 @@ func TestNamingModuleUpper(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToUpper(fmt.Sprintf("%s-%s-%s", prefix, resourceName, suffix)), rendered)
+    assert.Equal(t, "PREFIX-RESOURCE_NAME-SUFFIX", rendered)
+
   })
 }
-
-func TestNamingModuleWhithoutSpace(t *testing.T) {
+func TestNamingModuleSeparator(t *testing.T) {
   t.Parallel()
 
-  // A unique ID we can use to namespace resources so we don't clash with anything
-  // already in the AWS account or tests running in parallel
-  resourceName := random.UniqueId()
-  suffix := random.UniqueId()
-  prefix := random.UniqueId()
-  namingOptions := map[string]string{"resource_name": resourceName, "suffix": fmt.Sprintf("%s ",suffix), "prefix": prefix}
-  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../", "exemples/default")
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/separator")
 
   defer test_structure.RunTestStage(t, "teardown", func() {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
@@ -262,11 +190,6 @@ func TestNamingModuleWhithoutSpace(t *testing.T) {
     terraformOptions := &terraform.Options{
       // The path to where our Terraform code is located
       TerraformDir: terraformDir,
-
-      // Variables to pass to our Terraform code using -var options
-      Vars: map[string]interface{}{
-        "naming_options": namingOptions,
-      },
     }
     test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
     terraform.InitAndApply(t, terraformOptions)
@@ -277,6 +200,35 @@ func TestNamingModuleWhithoutSpace(t *testing.T) {
     terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
     rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
 
-    assert.Equal(t, strings.ToLower(fmt.Sprintf("%s-%s-%s", prefix, resourceName, suffix)), rendered)
+    assert.Equal(t, "prefix_resource_name_suffix", rendered)
+
+  })
+}
+func TestNamingModuleLength(t *testing.T) {
+  t.Parallel()
+
+  terraformDir := test_structure.CopyTerraformFolderToTemp(t, "../../", "examples/length")
+
+  defer test_structure.RunTestStage(t, "teardown", func() {
+    terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
+    terraform.Destroy(t, terraformOptions)
+  })
+
+  test_structure.RunTestStage(t, "setup", func() {
+    terraformOptions := &terraform.Options{
+      // The path to where our Terraform code is located
+      TerraformDir: terraformDir,
+    }
+    test_structure.SaveTerraformOptions(t, terraformDir, terraformOptions)
+    terraform.InitAndApply(t, terraformOptions)
+
+  })
+
+  test_structure.RunTestStage(t, "validate", func() {
+    terraformOptions := test_structure.LoadTerraformOptions(t, terraformDir)
+    rendered := terraform.OutputRequired(t, terraformOptions, "rendered")
+
+    assert.Equal(t, "prefix-resource", rendered)
+
   })
 }

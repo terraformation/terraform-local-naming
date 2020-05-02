@@ -8,22 +8,27 @@ resources:
     - container: tooling_tester
       image: terraformation/tooling-tester
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-latest'
 container: tooling_tester
+variables:
+  GO_CACHE_FOLDER: $(Build.SourcesDirectory)/src/tests/vendor
 steps:
-  - bash: |
-      mkdir -p /go/src
-      cd /go/src
-      ln -s $(Build.SourcesDirectory)/tests
-      ls -al
-      pwd
-    displayName: go src
-  - bash: |
-      cd /go/src/tests
-      dep ensure --vendor-only
-    displayName: dep ensure --vendor-only
-
-  - bash: |
-      cd /go/src/tests
-      go test
-    displayName: go test
+  - download: none
+  - task: Cache@2
+    inputs:
+      key: 'v1| go | "$(Agent.OS)" | $(Build.SourcesDirectory)/src/tests/Gopkg.lock'
+      restoreKeys: |
+        go | "$(Agent.OS)"
+        go
+      path: $(GO_CACHE_FOLDER)
+    displayName: Cache Yarn packages
+  - bash: dep ensure --vendor-only
+    workingDirectory: $(Build.SourcesDirectory)/src/tests
+    displayName: Retrieve Dependencies
+    env:
+      GOPATH: $(Build.SourcesDirectory)
+  - bash: go test
+    workingDirectory: $(Build.SourcesDirectory)/src/tests
+    displayName: Testing the module
+    env:
+      GOPATH: $(Build.SourcesDirectory)
