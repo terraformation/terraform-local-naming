@@ -9,6 +9,7 @@
 [![Maintained by Terraformation](https://img.shields.io/badge/maintained%20by-Terraformation-%235849a6.svg)](https://github.com/terraformation)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 ![Chat](https://img.shields.io/gitter/room/terraformation/community)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fterraformation%2Fterraform-local-naming.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fterraformation%2Fterraform-local-naming?ref=badge_shield)
 
 </div>
 
@@ -77,3 +78,6 @@ This code is released under the MIT License. Please see [LICENSE](https://github
 details.
 
 Copyright (c) 2019 Terraformation
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fterraformation%2Fterraform-local-naming.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fterraformation%2Fterraform-local-naming?ref=badge_large)
